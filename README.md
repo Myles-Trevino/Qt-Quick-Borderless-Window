@@ -3,7 +3,6 @@ A borderless window for Windows Qt Quick/QML applications.
 
 ![Preview](Preview.png)
 
-
 ## Options
    * Window size
 
@@ -22,8 +21,7 @@ A borderless window for Windows Qt Quick/QML applications.
    * Enable or disable displaying QML while resizing
 
 ## Notes
-   * Set the native window's properties only after creating the QML window, otherwise
-   * DPI scaling will not be applied.
+   * Set the native window's properties only after creating the QML window, otherwise DPI scaling will not be applied.
 
    * Enabling top and left resizing results in undesirable window movement while
       resizing. This is minor when displaying the QML window while resizing is
