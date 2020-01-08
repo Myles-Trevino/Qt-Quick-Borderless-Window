@@ -33,6 +33,7 @@ namespace
     bool display_qml_window_while_resizing;
 
 
+    // Handles the window's events.
     LRESULT CALLBACK event_callback(HWND handle, UINT message,
         WPARAM word_parameter, LPARAM long_parameter)
     {
@@ -75,7 +76,7 @@ namespace
             // Handle the resize and reposition messages from the QML window.
             case WM_NCHITTEST:
             {
-                int result = Native_Window::reposition_and_resize_test(
+                int result = Native_Window::grab_and_resize_test(
                     handle, message, word_parameter, long_parameter);
                 resize_area_hovered = (result != HTCAPTION);
                 return result;
@@ -131,6 +132,7 @@ namespace
 }
 
 
+// Initializes the window.
 void Native_Window::initialize(int width, int height, int device_pixel_ratio,
     const COLORREF& background_color, int x, int y)
 {
@@ -177,6 +179,14 @@ void Native_Window::initialize(int width, int height, int device_pixel_ratio,
 }
 
 
+// Destroys the window.
+void Native_Window::destroy()
+{
+    ShowWindow(handle, SW_HIDE);
+    DestroyWindow(handle);
+}
+
+// Binds the QML window.
 void Native_Window::bind_qml_window(QWidget *qml_widget, HWND qml_window)
 {
     ::qml_widget = qml_widget;
@@ -184,50 +194,11 @@ void Native_Window::bind_qml_window(QWidget *qml_widget, HWND qml_window)
 }
 
 
-void Native_Window::set_resize_area_thickness(int size)
-{ resize_area_thickness = size*device_pixel_ratio; }
-
-
-void Native_Window::set_grab_area(int height, int left_margin, int right_margin)
-{
-    grab_area_height = height*device_pixel_ratio;
-    grab_area_left_margin = left_margin*device_pixel_ratio;
-    grab_area_right_margin = right_margin*device_pixel_ratio;
-}
-
-void Native_Window::set_enable_left_and_top_resizing(bool enable)
-{ enable_left_and_top_resizing = enable; }
-
-
-void Native_Window::set_display_qml_window_while_resizing(bool display)
-{ display_qml_window_while_resizing = display; }
-
-
-void Native_Window::set_background_color(const COLORREF& color)
-{ background_color = color; }
-
-
-void Native_Window::set_minimum_size(int width, int height)
-{
-    minimum_width = width;
-    minimum_height = height;
-}
-
-
-void Native_Window::destroy()
-{
-    ShowWindow(handle, SW_HIDE);
-    DestroyWindow(handle);
-}
-
-
-void Native_Window::set_geometry(const int x, const int y, const int width, const int height)
-{ MoveWindow(handle, x, y, width, height, true); }
-
-
-int Native_Window::reposition_and_resize_test(HWND handle,
+// Tests if the mouse is on a grab or resize area.
+int Native_Window::grab_and_resize_test(HWND handle,
     UINT message, WPARAM word_parameter, LPARAM long_parameter)
 {
+    // Get the relative mouse and window position.
     RECT rectangle;
     GetWindowRect(handle, &rectangle);
     int x{GET_X_LPARAM(long_parameter)-rectangle.left},
@@ -235,7 +206,7 @@ int Native_Window::reposition_and_resize_test(HWND handle,
         x2{rectangle.right-rectangle.left},
         y2{rectangle.bottom-rectangle.top};
 
-    // Drag area.
+    // Grab area.
     if(x >= (enable_left_and_top_resizing ? resize_area_thickness : 0)+grab_area_left_margin &&
         x <= x2-resize_area_thickness-grab_area_right_margin &&
         y >= (enable_left_and_top_resizing ? resize_area_thickness : 0) &&
@@ -273,10 +244,47 @@ int Native_Window::reposition_and_resize_test(HWND handle,
         if(x < resize_area_thickness) return HTLEFT;
     }
 
+    // The mouse is not over any grab or resize area.
     return NULL;
 }
 
 
+// Setters.
+void Native_Window::set_resize_area_thickness(int size)
+{ resize_area_thickness = size*device_pixel_ratio; }
+
+
+void Native_Window::set_grab_area(int height, int left_margin, int right_margin)
+{
+    grab_area_height = height*device_pixel_ratio;
+    grab_area_left_margin = left_margin*device_pixel_ratio;
+    grab_area_right_margin = right_margin*device_pixel_ratio;
+}
+
+void Native_Window::set_enable_left_and_top_resizing(bool enable)
+{ enable_left_and_top_resizing = enable; }
+
+
+void Native_Window::set_display_qml_while_resizing(bool display)
+{ display_qml_window_while_resizing = display; }
+
+
+void Native_Window::set_background_color(const COLORREF& color)
+{ background_color = color; }
+
+
+void Native_Window::set_minimum_size(int width, int height)
+{
+    minimum_width = width;
+    minimum_height = height;
+}
+
+
+void Native_Window::set_geometry(int x, int y, int width, int height)
+{ MoveWindow(handle, x, y, width, height, true); }
+
+
+// Getters.
 HWND Native_Window::get_handle(){ return handle; }
 
 

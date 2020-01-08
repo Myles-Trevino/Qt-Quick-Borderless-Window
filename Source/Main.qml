@@ -9,7 +9,6 @@ Rectangle
     color: "#EEEEEE"
     onWidthChanged: fadeIn()
     onHeightChanged: fadeIn()
-    property bool maximized: false
 
     function fadeIn()
     {

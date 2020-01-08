@@ -110,7 +110,7 @@ bool QML_Window::nativeEvent(const QByteArray &, void *message, long *result)
     // Check for resize or grab events.
     if(qt_message->message == WM_NCHITTEST)
     {
-        if(!Native_Window::reposition_and_resize_test(qt_message->hwnd,
+        if(!Native_Window::grab_and_resize_test(qt_message->hwnd,
             qt_message->message, qt_message->wParam, qt_message->lParam)) return false;
         *result = HTTRANSPARENT;
         return true;
