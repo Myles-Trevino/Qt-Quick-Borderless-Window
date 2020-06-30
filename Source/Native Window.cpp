@@ -1,3 +1,10 @@
+/*
+	Copyright 2020 Myles Trevino
+	Licensed under the Apache License, Version 2.0
+	http://www.apache.org/licenses/LICENSE-2.0
+*/
+
+
 #include "Native Window.hpp"
 
 #include <stdexcept>
@@ -143,7 +150,7 @@ namespace
 
 
 // Initializes the window.
-void Native_Window::initialize(const std::string& title, int width, int height,
+void Native_Window::initialize(const std::wstring& title, int width, int height,
 	int device_pixel_ratio, const COLORREF& background_color, int x, int y)
 {
 	::device_pixel_ratio = device_pixel_ratio;

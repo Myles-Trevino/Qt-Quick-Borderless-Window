@@ -1,3 +1,9 @@
+/*
+	Copyright 2020 Myles Trevino
+	Licensed under the Apache License, Version 2.0
+	http://www.apache.org/licenses/LICENSE-2.0
+*/
+
 #include "QML Window.hpp"
 
 #include <QApplication>
@@ -5,14 +11,12 @@
 
 
 // Initializes the QML window.
-QML_Window::QML_Window(int width, int height,
-	const COLORREF& background_color,
-	int x, int y) : QWidget(nullptr)
+QML_Window::QML_Window(const std::string& title, int width, int height,
+	const COLORREF& background_color, int x, int y) : QWidget(nullptr)
 {
 	// Create the native window.
-	Native_Window::initialize(width, height,
-		window()->devicePixelRatio(),
-		background_color, x, y);
+	Native_Window::initialize(title, width, height,
+		window()->devicePixelRatio(), background_color, x, y);
 
 	// Create the Qt window and embed it in the native window.
 	setWindowFlags(Qt::FramelessWindowHint);

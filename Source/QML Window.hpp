@@ -1,3 +1,10 @@
+/*
+	Copyright 2020 Myles Trevino
+	Licensed under the Apache License, Version 2.0
+	http://www.apache.org/licenses/LICENSE-2.0
+*/
+
+
 #pragma once
 
 #include <QWidget>
@@ -10,9 +17,8 @@ class QML_Window : public QWidget
 	Q_OBJECT
 
 public:
-	QML_Window(int width, int height,
-		const COLORREF& background_color = RGB(0, 0, 0),
-		int x = -1, int y = -1);
+	QML_Window(const std::string& title, int width, int height,
+		const COLORREF& background_color = RGB(0, 0, 0), int x = -1, int y = -1);
 	~QML_Window();
 
 	void add_widget(const QUrl& qml_source);

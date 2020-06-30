@@ -1,3 +1,10 @@
+/*
+	Copyright 2020 Myles Trevino
+	Licensed under the Apache License, Version 2.0
+	http://www.apache.org/licenses/LICENSE-2.0
+*/
+
+
 #pragma once
 
 #include <string>
@@ -8,7 +15,7 @@
 
 namespace Native_Window
 {
-	void initialize(const std::string& title, int width, int height,
+	void initialize(const std::wstring& title, int width, int height,
 		int device_pixel_ratio, const COLORREF& background_color, int x, int y);
 	void destroy();
 

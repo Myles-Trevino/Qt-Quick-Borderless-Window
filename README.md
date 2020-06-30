@@ -4,20 +4,14 @@ A borderless window for Windows Qt Quick/QML applications.
 ![Preview](Preview.png)
 
 ## Options
+   * Window title
    * Window size
-
    * Window position (automatically centers by default)
-
    * Minimum window size
-
    * Background color (can become temporarily visible when resizing)
-
    * Resize area thickness
-
    * Grab area height, left margin, and right margin
-
    * Enable or disable left and top resizing
-
    * Enable or disable displaying QML while resizing
 
 ## Notes

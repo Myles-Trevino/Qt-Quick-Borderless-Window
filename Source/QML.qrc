@@ -1,6 +1,13 @@
+/*
+	Copyright 2020 Myles Trevino
+	Licensed under the Apache License, Version 2.0
+	http://www.apache.org/licenses/LICENSE-2.0
+*/
+
+
 <RCC>
-    <qresource prefix="/">
-        <file>Main.qml</file>
-        <file>WindowControl.qml</file>
-    </qresource>
+	<qresource prefix="/">
+		<file>Main.qml</file>
+		<file>WindowControl.qml</file>
+	</qresource>
 </RCC>
